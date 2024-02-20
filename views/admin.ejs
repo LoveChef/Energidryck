@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adminpanel</title>
+</head>
+<body>
+    <h1>Adminpanel</h1>
+    <form action="/admin/add" method="POST" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="Titel" required><br><br>
+        <input type="file" name="image" accept="image/*" required><br><br>
+        <input type="text" name="info" placeholder="Information" required><br><br>
+        <input type="text" name="flavor" placeholder="Smak" required><br><br>
+        <button type="submit">Lägg till dryck</button>
+    </form>
+    <h2>Drycker</h2>
+    <ul>
+        <% if (drinks && drinks.length) { %>
+            <% drinks.forEach(drink => { %>
+                <li>
+                    <strong><%= drink.title %></strong> - <%= drink.info %> (<%= drink.flavor %>)
+                    <a href="/admin/edit/<%= drink._id %>">Redigera</a>
+                </li>
+            <% }); %>
+        <% } else { %>
+            <p>Inga drycker hittades.</p>
+        <% } %>
+    </ul>
+</body>
+</html>
