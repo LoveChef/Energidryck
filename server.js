@@ -7,7 +7,11 @@ const Drink = require('./models/drink');
 const app = express();
 
 // Anslut till MongoDB-databasen
-mongoose.connect('mongodb+srv://love:love@energidryck.vves83k.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+if (!process.env.MONGODB_URI) {
+  console.error("MONGODB_URI saknas. Kopiera .env.example till .env och fyll i den.");
+  process.exit(1);
+}
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Could not connect to MongoDB', err));
 
